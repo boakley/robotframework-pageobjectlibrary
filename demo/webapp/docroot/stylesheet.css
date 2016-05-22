@@ -1,0 +1,41 @@
+body {
+    font-family: "Helvetica", Helvetica, Arial, sans-serif;
+    background: #ddd;
+    margin-left: 60px;
+    margin: 30px;
+    max-width: 960px;
+}
+.command-prompt {
+    font-family: monospace;
+    white-space: pre;
+    background: #f2f6f8;
+    border: 1px solid;
+    color: #;
+    max-width: 40em;
+    box-shadow: 5px 5px 2px #888888;
+}
+
+.align-right {
+    float: right;
+}
+.header {
+    background: #000000;
+}
+.header a {
+    margin: 10px;
+    font-size: .9em;
+    color: #ddd;
+    text-decoration: none;
+}
+
+.form_entry {
+    font-family: "Helvetica", Helvetica, Arial, sans-serif;
+    margin-bottom: 1em;
+}
+
+h1 {
+    color: #b22222;
+}
+label {
+    display: block;
+}
