@@ -47,8 +47,8 @@ How it works
 
 The page object library is quite simple. Page object classes are
 implemented as standard robot keyword libraries, and relies on robot
-frameworks built-in [Set library search order keyword]
-(http://robotframework.org/robotframework/latest/libraries/BuiltIn.html#Set%20Library%20Search%20Order).
+frameworks built-in `Set library search order keyword
+<http://robotframework.org/robotframework/latest/libraries/BuiltIn.html#Set%20Library%20Search%20Order>`_.
 
 The core concept is that when you use PageObjectLibrary keywords to go
 to a page or assert you are on a specific page, the keyword will
