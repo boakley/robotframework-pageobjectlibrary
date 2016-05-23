@@ -37,10 +37,14 @@ repository to have access to the demo files.
 
 To run the demo, clone the github repository, cd to the folder that
 contains this file, and then run the following command:
-
 ::
 
     $ robot -d demo/results demo
+
+A simple tutorial
+----------------
+
+For a simple tutorial, see https://github.com/boakley/robotframework-pageobjectlibrary/wiki/Tutorial
 
 How it works
 ------------
