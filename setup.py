@@ -13,7 +13,7 @@ setup(
     keywords         = 'robotframework',
     license          = 'Apache License 2.0',
     description      = 'Robotframework library that implements the Page Object pattern',
-    long_description = open('README.md').read(),
+    long_description = open('README.rst').read(),
     zip_safe         = True,
     include_package_data = True,
     install_requires = ['robotframework', 'robotframework-selenium2library', 'selenium', 'six'],
