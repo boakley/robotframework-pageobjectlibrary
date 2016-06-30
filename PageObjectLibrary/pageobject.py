@@ -82,7 +82,8 @@ class PageObject(six.with_metaclass(ABCMeta, object)):
         old_page = self.browser.find_element_by_tag_name('html')
         yield
         WebDriverWait(self.browser, timeout).until(
-            staleness_of(old_page)
+            staleness_of(old_page),
+            message="Old page did not go stale within %ss" % timeout
         )
         self.se2lib.wait_for_condition("return (document.readyState == 'complete')", timeout=10)
 
