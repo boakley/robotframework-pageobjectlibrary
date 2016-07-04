@@ -29,7 +29,14 @@ class PageObjectLibraryKeywords(object):
         # this is implemented as a property so that this class
         # can be imported outside the context of a running
         # suite (ie: by libdoc, robotframework-hub, etc)
-        return self.builtin.get_library_instance("Selenium2Library")
+        try:
+            se2 = self.builtin.get_library_instance("Selenium2Library")
+
+        except RuntimeError:
+            self.builtin.import_library("Selenium2Library")
+            se2 = self.builtin.get_library_instance("Selenium2Library")
+
+        return se2
 
     def the_current_page_should_be(self, page_name):
         """Fails if the name of the current page is not the given page name
