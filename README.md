@@ -2,7 +2,7 @@
 
 ## Overview
 
-PageObjectLibrary is a lightweight [robot framework] keyword library that makes it possible to use the page object pattern when testing web pages with the keyword based approach of robot framework.
+PageObjectLibrary is a lightweight [Robot Framework] keyword library that makes it possible to use the page object pattern when testing web pages with the keyword based approach of robot framework.
 
 ## Installing
 
