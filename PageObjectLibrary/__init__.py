@@ -14,15 +14,15 @@ class PageObjectLibrary(PageObjectLibraryKeywords):
     [http://robotframework.org/Selenium2Library/doc/Selenium2Library.html|Selenium2Library].
     This library does not replace Selenium2Library; rather, it
     provides a framework around which to use Selenium2Library and the
-    lower-level [http://selenium-python.readthedocs.org/|python
-    bindings to selenium]
+    lower-level [http://selenium-python.readthedocs.org/|Python
+    bindings to Selenium]
 
     This library provides the following keywords:
 
     | =Keyword Name=             | =Synopsis= |
-    | Go to page                 | goes to the given page in the browser |
-    | The current page should be | assert that the given page is displayed in the browser |
-    | Get page name              | returns the name of the current page
+    | Go to page                 | Goes to the given page in the browser |
+    | The current page should be | Assert that the given page is displayed in the browser |
+    | Get page name              | Returns the name of the current page |
 
     PageObjectLibrary provides a PageObject class which should be used
     as the base class for other page objects. By inheriting from this
@@ -30,11 +30,11 @@ class PageObjectLibrary(PageObjectLibraryKeywords):
     attributes and methods:
 
     | =Attribute/method=  | =Description=                             |
-    | self.se2lib  | A reference to the selenium2library instance     |
-    | self.browser | A reference to the currently open browser        |
-    | self.locator | A wrapper around the _locators dictionary        |
-    | self.logger  | A reference to the robot.api.logger instance     |
-    | self._wait_for_page_refresh() | a context manager for doing work that causes a page refresh   |
+    | ``self.se2lib``  | A reference to the Selenium2Library instance     |
+    | ``self.browser`` | A reference to the currently open browser        |
+    | ``self.locator`` | A wrapper around the ``_locators`` dictionary        |
+    | ``self.logger``  | A reference to the ``robot.api.logger`` instance     |
+    | ``self._wait_for_page_refresh()`` | a context manager for doing work that causes a page refresh   |
 
     = Using Selenium2Library Keywords =
 
@@ -45,11 +45,11 @@ class PageObjectLibrary(PageObjectLibraryKeywords):
 
     | self.se2lib.capture_page_screenshot()
 
-    = Using Selenium methods =
+    = Using Selenium Methods =
 
-    The attribute ``self.browser`` is a reference to a selenium
+    The attribute ``self.browser`` is a reference to a Selenium
     webdriver object. With this reference you can call any of the
-    standard selenium methods provided by the selenium library. The
+    standard Selenium methods provided by the Selenium library. The
     following example shows how to find all link elements on a page:
 
     | elements = self.browser,find_elements_by_tag_name("a")
@@ -60,9 +60,9 @@ class PageObjectLibrary(PageObjectLibraryKeywords):
     the class should define the following attributes:
 
     | =Attribute= | =Description= |
-    | PAGE_URL | The path to the current page, without the \
-    hostname and port (eg: /dashboard.html) |
-    | PAGE_TITLE | The web page title. This is used by the \
+    | ``PAGE_URL`` | The path to the current page, without the \
+    hostname and port (eg: ``/dashboard.html``) |
+    | ``PAGE_TITLE`` | The web page title. This is used by the \
     default implementation of ``_is_current_page``. |
 
     When using the keywords `Go To Page` or `The Current Page Should Be`, the
@@ -71,12 +71,12 @@ class PageObjectLibrary(PageObjectLibraryKeywords):
     of the page. If you are working on a site where the page titles are not unique,
     you can override this method to do any type of logic you need.
 
-    = Page Objects are normal robot libraries =
+    = Page Objects are Normal Robot Libraries =
 
     All rules that apply to keyword libraries applies to page objects. For
-    example, the libraries must be on PYTHONPATH. You may also want to define
+    example, the libraries must be on ``PYTHONPATH``. You may also want to define
     ``ROBOT_LIBRARY_SCOPE``. Also, the filename and the classname must be identical (minus
-    the .py suffix on the file).
+    the ``.py`` suffix on the file).
 
     = Locators =
 
@@ -88,9 +88,9 @@ class PageObjectLibrary(PageObjectLibraryKeywords):
     the locators via dot notation within your keywords as ``self.locator.<name>``. The
     ``_locators`` dictionary may have nested dictionaries.
 
-    = Waiting for a page to be ready =
+    = Waiting for a Page to be Ready =
 
-    One difficulty with writing selenium tests is knowing when a page has refreshed.
+    One difficulty with writing Selenium tests is knowing when a page has refreshed.
     PageObject provides a context manager named ``_wait_for_page_refresh()`` which can
     be used to wrap a command that should result in a page refresh. It will get a
     reference to the DOM, run the body of the context manager, and then wait for the
@@ -120,27 +120,26 @@ class PageObjectLibrary(PageObjectLibraryKeywords):
     |        with self._wait_for_page_refresh():
     |            self.click_the_submit_button()
 
-    = Using the page object in a test =
+    = Using the Page Object in a Test =
 
     To use the above page object in a test, you must make sure that
-    robot can import it, just like with any other keyword
+    Robot can import it, just like with any other keyword
     library. When you use the keyword `Go to page`, the keyword will
     automatically load the keyword library and put it at the front of
-    the robot framework library search order (see 
-    [http://robotframework.org/robotframework/latest/libraries/BuiltIn.html#Set
-    Library Search Order|Set library search order])
+    the Robot Framework library search order (see 
+    [http://robotframework.org/robotframework/latest/libraries/BuiltIn.html#Set%20Library%20Search%20Order|Set Library Search Order])
 
     In the following example it is assumed there is a second page
     object named ``DashboardPage`` which the browser is expected to go to 
     if login is successful.
 
-    | *** Settings ***
-    | Library    PageObjectLibrary
-    | Library    Selenium2Library
-    | Suite Setup       Open browser    http://www.example.com
+    | ``*** Settings ***``
+    | Library           PageObjectLibrary
+    | Library           Selenium2Library
+    | Suite Setup       Open browser        http://www.example.com
     | Suite Teardown    Close all browsers
     | 
-    | *** Test Cases ***
+    | ``*** Test Cases ***``
     | Log in to the application
     |     Go to page                   LoginPage
     |     Log in as a normal user 
