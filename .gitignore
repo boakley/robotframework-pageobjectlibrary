@@ -60,3 +60,8 @@ target/
 
 #Ipython Notebook
 .ipynb_checkpoints
+
+# robot cruft
+output.xml
+log.html
+report.html
