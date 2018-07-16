@@ -1,6 +1,6 @@
 # N.B. to push a new version to PyPi, update the version number
 # in rfhub/version.py and then run 'python setup.py sdist upload'
-import sys
+import io
 
 from setuptools import setup
 
@@ -17,7 +17,7 @@ setup(
     keywords='robotframework',
     license='Apache License 2.0',
     description='RobotFramework library that implements the Page Object pattern',
-    long_description=open('README.md', encoding='latin-1').read(),
+    long_description=io.open('README.md', encoding='latin-1').read(),
     zip_safe=True,
     include_package_data=True,
     install_requires=['robotframework', 'robotframework-seleniumlibrary', 'selenium', 'six'],
