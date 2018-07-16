@@ -4,9 +4,9 @@ import sys
 
 from setuptools import setup
 
-from .version import __version__
+# from version import __version__
 
-exec(compile(open('PageObjectLibrary/version.py').read()))
+exec(open('PageObjectLibrary/version.py').read())
 
 setup(
     name='robotframework-pageobjectlibrary',
