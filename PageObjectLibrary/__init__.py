@@ -1,7 +1,9 @@
 from __future__ import absolute_import, unicode_literals
+
 from .keywords import PageObjectLibraryKeywords
 from .pageobject import PageObject
 from .version import __version__
+
 
 class PageObjectLibrary(PageObjectLibraryKeywords):
 
@@ -142,7 +144,7 @@ class PageObjectLibrary(PageObjectLibraryKeywords):
     | ``*** Test Cases ***``
     | Log in to the application
     |     Go to page                   LoginPage
-    |     Log in as a normal user 
+    |     Log in as a normal user
     |     The current page should be   DashboardPage
 
     """

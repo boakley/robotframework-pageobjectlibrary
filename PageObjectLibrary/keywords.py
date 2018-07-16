@@ -7,14 +7,18 @@ selenium and Seleniuim2Library.
 """
 
 from __future__ import print_function, absolute_import, unicode_literals
-import six
+
 import robot.api
 from robot.libraries.BuiltIn import BuiltIn
+
+import six
+
 from .pageobject import PageObject
 try:
     from urlparse import urlparse
 except ImportError:
     from urllib.parse import urlparse
+
 
 class PageObjectLibraryKeywords(object):
 
@@ -69,7 +73,7 @@ class PageObjectLibraryKeywords(object):
         # If we get here, we're not on the page we think we're on
         raise Exception("Expected page to be %s but it was not" % page_name)
 
-    def go_to_page(self, page_name, page_root = None):
+    def go_to_page(self, page_name, page_root=None):
         """Go to the url for the given page object.
 
         Unless explicitly provided, the URL root will be based on the
@@ -125,4 +129,3 @@ class PageObjectLibraryKeywords(object):
             page = self.builtin.get_library_instance(page_name)
 
         return page
-
