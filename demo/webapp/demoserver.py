@@ -15,6 +15,7 @@ else:
     import SocketServer as socketserver
     from urlparse import urlparse
 
+
 def main():
     parser = argparse.ArgumentParser(description="demo web server")
     parser.add_argument("-p", "--port", type=int, default=8000, help="port number for the server (default 8000)")
@@ -27,10 +28,11 @@ def main():
     try:
         httpd = DemoServer(("", args.port), DemoHandler)
         print("serving %s on port %s" % (docroot, 8000))
-        print ("^C, or visit http://localhost:%s/admin/shutdown to stop" % args.port)
+        print("^C, or visit http://localhost:%s/admin/shutdown to stop" % args.port)
         httpd.serve_forever()
     except KeyboardInterrupt:
         pass
+
 
 class DemoHandler(SimpleHTTPRequestHandler):
 
@@ -50,7 +52,7 @@ class DemoHandler(SimpleHTTPRequestHandler):
     def do_GET(self):
         url = urlparse(self.path)
         print("url: '%s' url.path: '%s'" % (url, url.path))
-        if url.path == "" or url.path == "/" :
+        if url.path == "" or url.path == "/":
             self.redirect("/login.html")
 
         if url.path == "/authenticate":
@@ -79,10 +81,12 @@ class DemoHandler(SimpleHTTPRequestHandler):
                  })
         return form
 
+
 class DemoServer(socketserver.TCPServer):
     def server_bind(self):
         self.socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         self.socket.bind(self.server_address)
+
 
 if __name__ == "__main__":
     main()

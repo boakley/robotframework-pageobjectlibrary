@@ -1,11 +1,12 @@
 import os
 import sys
 
+
 class Config(object):
-    """Configuration variables for this test suite 
+    """Configuration variables for this test suite
 
     This creates a variable named CONFIG (${CONFIG} when included
-    in a test as a variable file. 
+    in a test as a variable file.
 
     Example:
 
@@ -28,11 +29,12 @@ class Config(object):
         self.demo_root = os.path.abspath(os.path.join(_here, ".."))
         self.port = 8000
         self.root_url = "http://localhost:%s" % self.port
-        self.username="test user"
-        self.password="password"
+        self.username = "test user"
+        self.password = "password"
 
     def __str__(self):
         return "<Config: %s>" % str(self.__dict__)
-        
+
+
 # This creates a variable that robot can see
 CONFIG = Config()

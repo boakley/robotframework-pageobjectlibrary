@@ -5,7 +5,7 @@
 | Variables | ../resources/config.py
 |
 | Library   | PageObjectLibrary
-| Library   | Selenium2Library
+| Library   | SeleniumLibrary
 | Library   | Process
 |
 | Suite Setup | Start webapp and open browser

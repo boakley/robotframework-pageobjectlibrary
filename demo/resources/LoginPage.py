@@ -1,5 +1,7 @@
 from PageObjectLibrary import PageObject
+
 from robot.libraries.BuiltIn import BuiltIn
+
 
 class LoginPage(PageObject):
     PAGE_TITLE = "Login - PageObjectLibrary Demo"
@@ -24,7 +26,7 @@ class LoginPage(PageObject):
         """Enter the given string into the username field"""
         self.se2lib.input_text(self.locator.username, username)
 
-    def enter_password(self,password):
+    def enter_password(self, password):
         """Enter the given string into the password field"""
         self.se2lib.input_text(self.locator.password, password)
 
