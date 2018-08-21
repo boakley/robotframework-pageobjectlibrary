@@ -1,20 +1,24 @@
 """PageObjectLibrary
 
 A library to support the creation of page objects using
-selenium and Seleniuim2Library.
+selenium and SeleniuimLibrary.
 
 
 """
 
 from __future__ import print_function, absolute_import, unicode_literals
-import six
+
 import robot.api
 from robot.libraries.BuiltIn import BuiltIn
+
+import six
+
 from .pageobject import PageObject
 try:
     from urlparse import urlparse
 except ImportError:
     from urllib.parse import urlparse
+
 
 class PageObjectLibraryKeywords(object):
 
@@ -30,11 +34,11 @@ class PageObjectLibraryKeywords(object):
         # can be imported outside the context of a running
         # suite (ie: by libdoc, robotframework-hub, etc)
         try:
-            se2 = self.builtin.get_library_instance("Selenium2Library")
+            se2 = self.builtin.get_library_instance("SeleniumLibrary")
 
         except RuntimeError:
-            self.builtin.import_library("Selenium2Library")
-            se2 = self.builtin.get_library_instance("Selenium2Library")
+            self.builtin.import_library("SeleniumLibrary")
+            se2 = self.builtin.get_library_instance("SeleniumLibrary")
 
         return se2
 
@@ -69,7 +73,7 @@ class PageObjectLibraryKeywords(object):
         # If we get here, we're not on the page we think we're on
         raise Exception("Expected page to be %s but it was not" % page_name)
 
-    def go_to_page(self, page_name, page_root = None):
+    def go_to_page(self, page_name, page_root=None):
         """Go to the url for the given page object.
 
         Unless explicitly provided, the URL root will be based on the
@@ -90,7 +94,7 @@ class PageObjectLibraryKeywords(object):
         The effect is the same as if you had called the following three
         keywords:
 
-        | Selenium2Library.Go To      http://www.example.com/login
+        | SeleniumLibrary.Go To      http://www.example.com/login
         | Import Library              ExampleLoginPage
         | Set Library Search Order    ExampleLoginPage
 
@@ -125,4 +129,3 @@ class PageObjectLibraryKeywords(object):
             page = self.builtin.get_library_instance(page_name)
 
         return page
-

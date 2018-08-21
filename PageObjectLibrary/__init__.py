@@ -1,7 +1,9 @@
 from __future__ import absolute_import, unicode_literals
+
 from .keywords import PageObjectLibraryKeywords
 from .pageobject import PageObject
 from .version import __version__
+
 
 class PageObjectLibrary(PageObjectLibraryKeywords):
 
@@ -11,9 +13,9 @@ class PageObjectLibrary(PageObjectLibraryKeywords):
 
     *PageObjectLibrary* is a lightweight library which supports using
     the page object pattern with
-    [http://robotframework.org/Selenium2Library/doc/Selenium2Library.html|Selenium2Library].
-    This library does not replace Selenium2Library; rather, it
-    provides a framework around which to use Selenium2Library and the
+    [http://robotframework.org/SeleniumLibrary/doc/SeleniumLibrary.html|SeleniumLibrary].
+    This library does not replace SeleniumLibrary; rather, it
+    provides a framework around which to use SeleniumLibrary and the
     lower-level [http://selenium-python.readthedocs.org/|Python
     bindings to Selenium]
 
@@ -30,16 +32,16 @@ class PageObjectLibrary(PageObjectLibraryKeywords):
     attributes and methods:
 
     | =Attribute/method=  | =Description=                             |
-    | ``self.se2lib``  | A reference to the Selenium2Library instance     |
+    | ``self.se2lib``  | A reference to the SeleniumLibrary instance     |
     | ``self.browser`` | A reference to the currently open browser        |
     | ``self.locator`` | A wrapper around the ``_locators`` dictionary        |
     | ``self.logger``  | A reference to the ``robot.api.logger`` instance     |
     | ``self._wait_for_page_refresh()`` | a context manager for doing work that causes a page refresh   |
 
-    = Using Selenium2Library Keywords =
+    = Using SeleniumLibrary Keywords =
 
     Within your keywords you have access to the full power of
-    Selenium2Library. You can use ``self.se2lib`` to access the
+    SeleniumLibrary. You can use ``self.se2lib`` to access the
     library keywords. The following example shows how to call the
     ``Capture Page Screenshot`` keyword:
 
@@ -126,7 +128,7 @@ class PageObjectLibrary(PageObjectLibraryKeywords):
     Robot can import it, just like with any other keyword
     library. When you use the keyword `Go to page`, the keyword will
     automatically load the keyword library and put it at the front of
-    the Robot Framework library search order (see 
+    the Robot Framework library search order (see
     [http://robotframework.org/robotframework/latest/libraries/BuiltIn.html#Set%20Library%20Search%20Order|Set Library Search Order])
 
     In the following example it is assumed there is a second page
@@ -135,14 +137,14 @@ class PageObjectLibrary(PageObjectLibraryKeywords):
 
     | ``*** Settings ***``
     | Library           PageObjectLibrary
-    | Library           Selenium2Library
+    | Library           SeleniumLibrary
     | Suite Setup       Open browser        http://www.example.com
     | Suite Teardown    Close all browsers
     | 
     | ``*** Test Cases ***``
     | Log in to the application
     |     Go to page                   LoginPage
-    |     Log in as a normal user 
+    |     Log in as a normal user
     |     The current page should be   DashboardPage
 
     """

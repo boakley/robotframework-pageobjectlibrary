@@ -1,5 +1,6 @@
 from PageObjectLibrary import PageObject
 
+
 class HomePage(PageObject):
     """Keywords for the Home page of the demo app
 
@@ -16,4 +17,3 @@ class HomePage(PageObject):
     # (eg: self.locator.username, etc)
     _locators = {
     }
-
