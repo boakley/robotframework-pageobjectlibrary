@@ -1,0 +1,2 @@
+--outputdir tests/results
+--variable  browser:chrome
