@@ -20,7 +20,7 @@ The source code is hosted on github at the following url:
 
 In the github repository is a small demonstration suite that includes a self-contained webserver and web site.
 
-For the demo to run you must have robotframework 2.9+ and Selenium2Library installed. You must also have cloned the github repository to have access to the demo files.
+For the demo to run you must have robotframework 2.9+ and SeleniumLibrary installed. You must also have cloned the github repository to have access to the demo files.
 
 To run the demo, clone the github repository, cd to the folder that contains this file, and then run the following command: :
 
@@ -86,8 +86,8 @@ Page objects are simple python classes that inherit from `PageObjectLibrary.Page
 
 By inheriting from `PageObjectLibrary.PageObject`, methods have access to the folloing special object attributes:
 
-- `self.se2lib` - a reference to an instance of Selenium2Library. With this you can call any of the Selenium2Library keywords via their python method names (eg: self.se2lib.input\_text)
-- `self.browser` - a reference to the webdriver object created when a browser was opened by Selenium2Library. With this you can bypass Selenium2Library and directly call all of the functions provided by the core selenium library.
+- `self.se2lib` - a reference to an instance of SeleniumLibrary. With this you can call any of the SeleniumLibrary keywords via their python method names (eg: self.se2lib.input\_text)
+- `self.browser` - a reference to the webdriver object created when a browser was opened by SeleniumLibrary. With this you can bypass SeleniumLibrary and directly call all of the functions provided by the core selenium library.
 - `self.locator` - a wrapper around the `_locators` dictionary of the page. This dictionary can contain all of the locators used by the page object keywords. `self.locators` adds the ability to access the locators with dot notation rather than the slightly more verbose dictionary syntax (eg: `self.locator.username` vs `self._locators["username"]`.
 
 ## An example page object

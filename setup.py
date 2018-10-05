@@ -1,11 +1,7 @@
-import sys
+from io import open
 from setuptools import setup
-import io
 
-if sys.version_info[0] > 2:
-    exec(open('PageObjectLibrary/version.py').read())
-else:
-    execfile('PageObjectLibrary/version.py')
+exec(open('PageObjectLibrary/version.py').read())
 
 setup(
     name             = 'robotframework-pageobjectlibrary',
@@ -16,13 +12,12 @@ setup(
     keywords         = 'robotframework',
     license          = 'Apache License 2.0',
     description      = 'RobotFramework library that implements the Page Object pattern',
-    long_description = io.open('README.md', encoding="utf-8").read(),
-    long_description_content_type = "text/markdown",
+    long_description = open('README.md', encoding='latin-1').read(),
     zip_safe         = True,
-    include_package_data = True,
-    install_requires = ['robotframework', 'selenium', 'six'],
+    include_package_data=True,
+    install_requires = ['robotframework', 'robotframework-seleniumlibrary', 'selenium', 'six'],
     classifiers      = [
-        "Development Status :: 5 - Production/Stable",
+        "Development Status :: 4 - Beta",
         "License :: OSI Approved :: Apache Software License",
         "Operating System :: OS Independent",
         "Framework :: Robot Framework",
@@ -31,8 +26,8 @@ setup(
         "Topic :: Software Development :: Quality Assurance",
         "Intended Audience :: Developers",
         ],
-    packages         =[
+    packages         = [
         'PageObjectLibrary',
     ],
-    scripts          =[],
+    scripts          = [],
 )
