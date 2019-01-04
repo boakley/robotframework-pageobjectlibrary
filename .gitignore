@@ -65,3 +65,14 @@ target/
 output.xml
 log.html
 report.html
+selenium-screenshot*.png
+tests/results
+
+# emacs cruft
+\#*\#
+\.\#*
+*.elc
+*~
+
+# misc
+tmp
