@@ -63,7 +63,7 @@ class PageObject(six.with_metaclass(ABCMeta, object)):
     # test (eg: by libdoc, robotframework-hub, etc)
     @property
     def se2lib(self):
-        warnings.warn("se2lib is deprecated. Use selib intead.")
+        warnings.warn("se2lib is deprecated. Use selib intead.", warnings.DeprecationWarning)
         return self.selib
 
     @property
