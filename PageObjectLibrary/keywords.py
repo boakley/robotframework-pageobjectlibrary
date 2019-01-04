@@ -3,10 +3,9 @@
 A library to support the creation of page objects using
 selenium and SeleniuimLibrary.
 
-The keywords in this file need to work even if there is no
-current page object, which is why they are here instead of
-on the PageObject model.
-
+Note: The keywords in this file need to work even if there is no
+current page object, which is why they are here instead of on the
+PageObject model.
 
 """
 
@@ -83,7 +82,7 @@ class PageObjectLibraryKeywords(object):
         The effect is the same as if you had called the following three
         keywords:
 
-        | SeleniumLibrary.Go To      http://www.example.com/login
+        | SeleniumLibrary.Go To       http://www.example.com/login
         | Import Library              ExampleLoginPage
         | Set Library Search Order    ExampleLoginPage
 
