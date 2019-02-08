@@ -2,7 +2,7 @@
 
 ## Overview
 
-PageObjectLibrary is a lightweight [Robot Framework] keyword library that makes it possible to use the page object pattern when testing web pages with the keyword based approach of robot framework.
+PageObjectLibrary is a lightweight [Robot Framework] keyword library that makes it possible to use the Page Object pattern when testing web pages with the keyword based approach of robot framework.
 
 ## Installing
 
@@ -10,40 +10,40 @@ PageObjectLibrary is a lightweight [Robot Framework] keyword library that makes 
 pip install --upgrade robotframework-pageobjectlibrary
 ```
 
-## Source code
+## Source Code
 
-The source code is hosted on github at the following url:
+The source code is hosted on GitHub at the following url:
 
 * https://github.com/boakley/robotframework-pageobjectlibrary.git
 
-## Running the demo
+## Running the Demo
 
-In the github repository is a small demonstration suite that includes a self-contained webserver and web site.
+In the GitHub repository is a small demonstration suite that includes a self-contained webserver and web site.
 
-For the demo to run you must have robotframework 2.9+ and SeleniumLibrary installed. You must also have cloned the github repository to have access to the demo files.
+For the demo to run, you must have [robotframework](https://pypi.org/project/robotframework/) 2.9+ and [robotframework-seleniumlibrary](https://pypi.org/project/robotframework-seleniumlibrary/) installed. You must also have cloned the GitHub repository to have access to the demo files.
 
-To run the demo, clone the github repository, cd to the folder that contains this file, and then run the following command: :
+To run the demo, clone the GitHub repository, cd to the folder that contains this file, and then run the following command: :
 
 ```bash
 robot -d demo/results demo
 ```
-### A simple tutorial
+### A Simple Tutorial
 
 For a simple tutorial, see <https://github.com/boakley/robotframework-pageobjectlibrary/wiki/Tutorial>
 
-## How it works
+## How it Works
 
-The page object library is quite simple. Page object classes are implemented as standard robot keyword libraries, and relies on robot frameworks built-in [Set library search order keyword].
+The Page Object library is quite simple. Page Object classes are implemented as standard robot keyword libraries, and relies on robot frameworks built-in [Set library search order keyword].
 
-The core concept is that when you use PageObjectLibrary keywords to go to a page or assert you are on a specific page, the keyword will automatically load the library for that page and put it at the front of the library search order, guaranteeing that the page object keywords are available to your test case.
+The core concept is that when you use PageObjectLibrary keywords to go to a page or assert you are on a specific page, the keyword will automatically load the library for that page and put it at the front of the library search order, guaranteeing that the Page Object keywords are available to your test case.
 
-## Why page objects makes writing tests easier
+## Why Page Objects Makes Writing Tests Easier
 
-The purpose of the page object pattern is to encapsulate the knowledge of how a web page is constructed into an object. Your test uses the object as an interface to the application, isolating your test cases from the details of the implementation of a page.
+The purpose of the Page Object pattern is to encapsulate the knowledge of how a web page is constructed into an object. Your test uses the object as an interface to the application, isolating your test cases from the details of the implementation of a page.
 
-With page objects, developers are free to modify web pages as much as they want, and the only thing they need to do to keep existing tests from failing is to update the page object class. Because test cases aren’t directly tied to the implementation, they become more stable and more resistent to change as the website matures.
+With Page Objects, developers are free to modify web pages as much as they want, and the only thing they need to do to keep existing tests from failing is to update the Page Object class. Because test cases aren’t directly tied to the implementation, they become more stable and more resistant to change as the website matures.
 
-## A typical test without page objects
+## A Typical Test _Without_ Page Objects
 
 With traditional testing using Selenium, a simple login test might look something like the following: (using the pipe-separated format for clarity):
 
@@ -59,13 +59,13 @@ With traditional testing using Selenium, a simple login test might look somethin
 | | Location should be | ${ROOT}/dashboard.html
 ```
 
-Notice how this test is tightly coupled to the implementation of the page. It has to know that the input field has an id of “id_username”, and the password field has an id of “id_password”. It also has to know the URL of the page being tested.
+Notice how this test is tightly coupled to the implementation of the page. It has to know that the input field has an id of `id_username`, and the password field has an id of `id_password`. It also has to know the URL of the page being tested.
 
 Of course, you can put those hard-coded values into variables and import them from a resource file or environment variables, which makes it easier to update tests when locators change. However, there’s still the overhead of additional keywords that are often required to make a test robust, such as waiting for a page to be reloaded. The provided PageObject superclass handles some of those details for you.
 
-## The same test, using page objects
+## The Same Test, Using Page Objects
 
-Using page objects, the same test could be written like this:
+Using Page Objects, the same test could be written like this:
 
 ```robotframework
 *** Test Cases ***
@@ -79,20 +79,20 @@ Notice how there are no URLs or element locators in the test whatsoever, and tha
 
 ## Writing a Page Object class
 
-Page objects are simple python classes that inherit from `PageObjectLibrary.PageObject`. There are only a couple of requirements for the class:
+Page Objects are simple python classes that inherit from `PageObjectLibrary.PageObject`. There are only a couple of requirements for the class:
 
-- The class should define a variable named PAGE\_TITLE
-- The class should define a variable named PAGE\_URL which is a URI relative to the site root.
+- The class should define a variable named `PAGE_TITLE`
+- The class should define a variable named `PAGE_URL` which is a URI relative to the site root.
 
-By inheriting from `PageObjectLibrary.PageObject`, methods have access to the folloing special object attributes:
+By inheriting from `PageObjectLibrary.PageObject`, methods have access to the following special object attributes:
 
-- `self.se2lib` - a reference to an instance of SeleniumLibrary. With this you can call any of the SeleniumLibrary keywords via their python method names (eg: self.se2lib.input\_text)
+- `self.selib` - a reference to an instance of SeleniumLibrary. With this you can call any of the SeleniumLibrary keywords via their python method names (eg: self.selib.input\_text)
 - `self.browser` - a reference to the webdriver object created when a browser was opened by SeleniumLibrary. With this you can bypass SeleniumLibrary and directly call all of the functions provided by the core selenium library.
-- `self.locator` - a wrapper around the `_locators` dictionary of the page. This dictionary can contain all of the locators used by the page object keywords. `self.locators` adds the ability to access the locators with dot notation rather than the slightly more verbose dictionary syntax (eg: `self.locator.username` vs `self._locators["username"]`.
+- `self.locator` - a wrapper around the `_locators` dictionary of the page. This dictionary can contain all of the locators used by the Page Object keywords. `self.locators` adds the ability to access the locators with dot notation rather than the slightly more verbose dictionary syntax (eg: `self.locator.username` vs `self._locators["username"]`.
 
-## An example page object
+## An example Page Object
 
-A page object representing a login page might look like this:
+A Page Object representing a login page might look like this:
 
 ```python
 from PageObjectLibrary import PageObject
@@ -109,17 +109,17 @@ class LoginPage(PageObject):
 
     def enter_username(self, username):
         """Enter the given string into the username field"""
-        self.se2lib.input_text(self.locator.username, username)
+        self.selib.input_text(self.locator.username, username)
 
     def enter_password(self,password):
         """Enter the given string into the password field"""
-        self.se2lib.input_text(self.locator.password, password)
+        self.selib.input_text(self.locator.password, password)
 
     def click_the_submit_button(self):
         """Click the submit button, and wait for the page to reload"""
         with self._wait_for_page_refresh():
-            self.se2lib.click_button(self.locator.submit_button)
+            self.selib.click_button(self.locator.submit_button)
 ```
 
-  [robot framework]: http://www.robotframework.org
-  [Set library search order keyword]: http://robotframework.org/robotframework/latest/libraries/BuiltIn.html#Set%20Library%20Search%20Order
+[robot framework]: http://www.robotframework.org
+[Set library search order keyword]: http://robotframework.org/robotframework/latest/libraries/BuiltIn.html#Set%20Library%20Search%20Order
