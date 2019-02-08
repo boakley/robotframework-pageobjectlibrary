@@ -1,13 +1,19 @@
 from __future__ import absolute_import, unicode_literals
+
+from abc import ABCMeta
+from contextlib import contextmanager
+import warnings
+
 import robot.api
 from robot.libraries.BuiltIn import BuiltIn
-from contextlib import contextmanager
-from selenium.webdriver.support.ui import WebDriverWait
+
 from selenium.webdriver.support.expected_conditions import staleness_of
-from abc import ABCMeta
+from selenium.webdriver.support.ui import WebDriverWait
+
 import six
 
 from .locatormap import LocatorMap
+
 
 class PageObject(six.with_metaclass(ABCMeta, object)):
     """Base class for page objects
@@ -15,7 +21,7 @@ class PageObject(six.with_metaclass(ABCMeta, object)):
     Classes that inherit from this class need to define the
     following class variables:
 
-    PAGE_TITLE   the title of the page; used by the default 
+    PAGE_TITLE   the title of the page; used by the default
                  implementation of _is_current_page
     PAGE_URL     this should be the URL of the page, minus
                  the hostname and port (eg: /loginpage.html)
@@ -25,18 +31,18 @@ class PageObject(six.with_metaclass(ABCMeta, object)):
     provided by this class. It compares the current page title to the
     class variable PAGE_TITLE. A class can override this method if the
     page title is not unique or is indeterminate.
-    
+
     Classes that inherit from this class have access to the
     following properties:
 
-    * se2lib    a reference to an instance of Selenium2Library
+    * selib     a reference to an instance of SeleniumLibrary
     * browser   a reference to the current webdriver instance
     * logger    a reference to robot.api.logger
-    * locator   a wrapper around the page object's ``_locators`` dictionary 
+    * locator   a wrapper around the page object's ``_locators`` dictionary
 
     This class implements the following context managers:
 
-    * _wait_for_page_refresh  
+    * _wait_for_page_refresh
 
     This context manager is designed to be used in page objects when a
     keyword should wait to return until the html element has been
@@ -50,17 +56,23 @@ class PageObject(six.with_metaclass(ABCMeta, object)):
     def __init__(self):
         self.logger = robot.api.logger
         self.locator = LocatorMap(getattr(self, "_locators", {}))
+        self.builtin = BuiltIn()
 
-    # N.B. se2lib, browser use @property so that a
+    # N.B. selib, browser use @property so that a
     # subclass can be instantiated outside of the context of a running
     # test (eg: by libdoc, robotframework-hub, etc)
     @property
     def se2lib(self):
-        return BuiltIn().get_library_instance("Selenium2Library")
+        warnings.warn("se2lib is deprecated. Use selib intead.", warnings.DeprecationWarning)
+        return self.selib
+
+    @property
+    def selib(self):
+        return self.builtin.get_library_instance("SeleniumLibrary")
 
     @property
     def browser(self):
-        return self.se2lib._current_browser()
+        return self.selib._current_browser()
 
     def __str__(self):
         return self.__class__.__name__
@@ -85,7 +97,7 @@ class PageObject(six.with_metaclass(ABCMeta, object)):
             staleness_of(old_page),
             message="Old page did not go stale within %ss" % timeout
         )
-        self.se2lib.wait_for_condition("return (document.readyState == 'complete')", timeout=10)
+        self.selib.wait_for_condition("return (document.readyState == 'complete')", timeout=10)
 
     def _is_current_page(self):
         """Determine if this page object represents the current page.
@@ -100,7 +112,7 @@ class PageObject(six.with_metaclass(ABCMeta, object)):
 
         """
 
-        actual_title = self.se2lib.get_title()
+        actual_title = self.selib.get_title()
         expected_title = self.PAGE_TITLE
 
         if actual_title.lower() == expected_title.lower():
@@ -110,4 +122,3 @@ class PageObject(six.with_metaclass(ABCMeta, object)):
         self.logger.info("  actual title: '%s'" % actual_title)
         raise Exception("expected title to be '%s' but it was '%s'" % (expected_title, actual_title))
         return False
-
