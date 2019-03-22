@@ -28,7 +28,7 @@ def main():
     try:
         httpd = DemoServer(("", args.port), DemoHandler)
         print("serving %s on port %s" % (docroot, 8000))
-        print("^C, or visit http://localhost:%s/admin/shutdown to stop" % args.port)
+        print ("^C, or visit http://localhost:%s/admin/shutdown to stop" % args.port)
         httpd.serve_forever()
     except KeyboardInterrupt:
         pass

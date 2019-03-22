@@ -2,6 +2,7 @@ from __future__ import absolute_import, unicode_literals
 
 from abc import ABCMeta
 from contextlib import contextmanager
+import warnings
 
 import robot.api
 from robot.libraries.BuiltIn import BuiltIn
@@ -34,7 +35,7 @@ class PageObject(six.with_metaclass(ABCMeta, object)):
     Classes that inherit from this class have access to the
     following properties:
 
-    * se2lib    a reference to an instance of SeleniumLibrary
+    * selib     a reference to an instance of SeleniumLibrary
     * browser   a reference to the current webdriver instance
     * logger    a reference to robot.api.logger
     * locator   a wrapper around the page object's ``_locators`` dictionary
@@ -55,17 +56,23 @@ class PageObject(six.with_metaclass(ABCMeta, object)):
     def __init__(self):
         self.logger = robot.api.logger
         self.locator = LocatorMap(getattr(self, "_locators", {}))
+        self.builtin = BuiltIn()
 
-    # N.B. se2lib, browser use @property so that a
+    # N.B. selib, browser use @property so that a
     # subclass can be instantiated outside of the context of a running
     # test (eg: by libdoc, robotframework-hub, etc)
     @property
     def se2lib(self):
-        return BuiltIn().get_library_instance("SeleniumLibrary")
+        warnings.warn("se2lib is deprecated. Use selib intead.", warnings.DeprecationWarning)
+        return self.selib
+
+    @property
+    def selib(self):
+        return self.builtin.get_library_instance("SeleniumLibrary")
 
     @property
     def browser(self):
-        return self.se2lib._current_browser()
+        return self.selib._current_browser()
 
     def __str__(self):
         return self.__class__.__name__
@@ -90,7 +97,7 @@ class PageObject(six.with_metaclass(ABCMeta, object)):
             staleness_of(old_page),
             message="Old page did not go stale within %ss" % timeout
         )
-        self.se2lib.wait_for_condition("return (document.readyState == 'complete')", timeout=10)
+        self.selib.wait_for_condition("return (document.readyState == 'complete')", timeout=10)
 
     def _is_current_page(self):
         """Determine if this page object represents the current page.
@@ -105,7 +112,7 @@ class PageObject(six.with_metaclass(ABCMeta, object)):
 
         """
 
-        actual_title = self.se2lib.get_title()
+        actual_title = self.selib.get_title()
         expected_title = self.PAGE_TITLE
 
         if actual_title.lower() == expected_title.lower():

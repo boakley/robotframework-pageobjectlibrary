@@ -1,25 +1,22 @@
-# N.B. to push a new version to PyPi, update the version number
-# in rfhub/version.py and then run 'python setup.py sdist upload'
 from io import open
-
 from setuptools import setup
 
 exec(open('PageObjectLibrary/version.py').read())
 
 setup(
-    name='robotframework-pageobjectlibrary',
-    version=__version__,
-    author='Bryan Oakley',
-    author_email='bryan.oakley@gmail.com',
-    url='https://github.com/boakley/robotframework-pageobjectlibrary/',
-    keywords='robotframework',
-    license='Apache License 2.0',
-    description='RobotFramework library that implements the Page Object pattern',
-    long_description=open('README.md', encoding='latin-1').read(),
-    zip_safe=True,
+    name             = 'robotframework-pageobjectlibrary',
+    version          = __version__,
+    author           = 'Bryan Oakley',
+    author_email     = 'bryan.oakley@gmail.com',
+    url              = 'https://github.com/boakley/robotframework-pageobjectlibrary/',
+    keywords         = 'robotframework',
+    license          = 'Apache License 2.0',
+    description      = 'RobotFramework library that implements the Page Object pattern',
+    long_description = open('README.md', encoding='latin-1').read(),
+    zip_safe         = True,
     include_package_data=True,
-    install_requires=['robotframework', 'robotframework-seleniumlibrary', 'selenium', 'six'],
-    classifiers=[
+    install_requires = ['robotframework', 'robotframework-seleniumlibrary', 'selenium', 'six'],
+    classifiers      = [
         "Development Status :: 4 - Beta",
         "License :: OSI Approved :: Apache Software License",
         "Operating System :: OS Independent",
@@ -29,8 +26,8 @@ setup(
         "Topic :: Software Development :: Quality Assurance",
         "Intended Audience :: Developers",
         ],
-    packages=[
+    packages         = [
         'PageObjectLibrary',
     ],
-    scripts=[],
+    scripts          = [],
 )

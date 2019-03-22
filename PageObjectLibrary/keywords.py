@@ -3,22 +3,24 @@
 A library to support the creation of page objects using
 selenium and SeleniuimLibrary.
 
+Note: The keywords in this file need to work even if there is no
+current page object, which is why they are here instead of on the
+PageObject model.
 
 """
 
 from __future__ import print_function, absolute_import, unicode_literals
+import six
 
 import robot.api
 from robot.libraries.BuiltIn import BuiltIn
 
-import six
 
 from .pageobject import PageObject
 try:
     from urlparse import urlparse
 except ImportError:
     from urllib.parse import urlparse
-
 
 class PageObjectLibraryKeywords(object):
 
@@ -27,20 +29,6 @@ class PageObjectLibraryKeywords(object):
     def __init__(self):
         self.builtin = BuiltIn()
         self.logger = robot.api.logger
-
-    @property
-    def se2lib(self):
-        # this is implemented as a property so that this class
-        # can be imported outside the context of a running
-        # suite (ie: by libdoc, robotframework-hub, etc)
-        try:
-            se2 = self.builtin.get_library_instance("SeleniumLibrary")
-
-        except RuntimeError:
-            self.builtin.import_library("SeleniumLibrary")
-            se2 = self.builtin.get_library_instance("SeleniumLibrary")
-
-        return se2
 
     def the_current_page_should_be(self, page_name):
         """Fails if the name of the current page is not the given page name
@@ -94,7 +82,7 @@ class PageObjectLibraryKeywords(object):
         The effect is the same as if you had called the following three
         keywords:
 
-        | SeleniumLibrary.Go To      http://www.example.com/login
+        | SeleniumLibrary.Go To       http://www.example.com/login
         | Import Library              ExampleLoginPage
         | Set Library Search Order    ExampleLoginPage
 
@@ -104,13 +92,12 @@ class PageObjectLibraryKeywords(object):
 
         page = self._get_page_object(page_name)
 
-        url = page_root if page_root is not None else self.se2lib.get_location()
+        url = page_root if page_root is not None else page.selib.get_location()
         (scheme, netloc, path, parameters, query, fragment) = urlparse(url)
         url = "%s://%s%s" % (scheme, netloc, page.PAGE_URL)
 
         with page._wait_for_page_refresh():
-            # self.logger.console("\ntrying to go to '%s'" % url)  # <-- Remove hashmark if you want this message on console
-            self.se2lib.go_to(url)
+            page.selib.go_to(url)
         # should I be calling this keyword? Should this keyword return
         # true/false, or should it throw an exception?
         self.the_current_page_should_be(page_name)

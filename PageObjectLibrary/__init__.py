@@ -32,7 +32,7 @@ class PageObjectLibrary(PageObjectLibraryKeywords):
     attributes and methods:
 
     | =Attribute/method=  | =Description=                             |
-    | ``self.se2lib``  | A reference to the SeleniumLibrary instance     |
+    | ``self.selib` `  | A reference to the SeleniumLibrary instance     |
     | ``self.browser`` | A reference to the currently open browser        |
     | ``self.locator`` | A wrapper around the ``_locators`` dictionary        |
     | ``self.logger``  | A reference to the ``robot.api.logger`` instance     |
@@ -41,11 +41,11 @@ class PageObjectLibrary(PageObjectLibraryKeywords):
     = Using SeleniumLibrary Keywords =
 
     Within your keywords you have access to the full power of
-    SeleniumLibrary. You can use ``self.se2lib`` to access the
+    SeleniumLibrary. You can use ``self.selib`` to access the
     library keywords. The following example shows how to call the
     ``Capture Page Screenshot`` keyword:
 
-    | self.se2lib.capture_page_screenshot()
+    | self.selib.capture_page_screenshot()
 
     = Using Selenium Methods =
 
@@ -116,8 +116,8 @@ class PageObjectLibrary(PageObjectLibraryKeywords):
     |    def login_as_a_normal_user(self):
     |        username = BuiltIn().get_variable_value("${USERNAME}"}
     |        password = BuiltIn().get_variable_value("${PASSWORD}"}
-    |        self.se2lib.input_text(self.locator.username, username)
-    |        self.se2lib.input_text(self.locator.password, password)
+    |        self.selib.input_text(self.locator.username, username)
+    |        self.selib.input_text(self.locator.password, password)
     |
     |        with self._wait_for_page_refresh():
     |            self.click_the_submit_button()
