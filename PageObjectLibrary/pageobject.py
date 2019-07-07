@@ -63,7 +63,7 @@ class PageObject(six.with_metaclass(ABCMeta, object)):
     # test (eg: by libdoc, robotframework-hub, etc)
     @property
     def se2lib(self):
-        warnings.warn("se2lib is deprecated. Use selib intead.", warnings.DeprecationWarning)
+        warnings.warn("se2lib is deprecated. Use selib instead.", DeprecationWarning)
         return self.selib
 
     @property
@@ -72,8 +72,22 @@ class PageObject(six.with_metaclass(ABCMeta, object)):
 
     @property
     def browser(self):
-        return self.selib._current_browser()
+        warnings.warn("browser is deprecated. Use driver instead.", DeprecationWarning)
+        return self.driver
 
+    @property
+    def driver(self):
+        '''Return the currently active driver instance
+
+        This is a proxy to the "driver" property of SeleniumLibrary
+        '''
+        if hasattr(self.selib, "driver"):
+            return self.selib.driver
+        elif hasattr(self.selib, "_current_browser"):
+            return self.selib._current_browser()
+        else:
+            raise Exception("unable to find 'driver' or '_current browser' attribute of SeleniumLibrary")
+    
     def __str__(self):
         return self.__class__.__name__
 

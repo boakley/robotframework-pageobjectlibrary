@@ -17,7 +17,7 @@ setup(
     include_package_data=True,
     install_requires = ['robotframework', 'robotframework-seleniumlibrary', 'selenium', 'six'],
     classifiers      = [
-        "Development Status :: 4 - Beta",
+        "Development Status :: 5 - Production/Stable",
         "License :: OSI Approved :: Apache Software License",
         "Operating System :: OS Independent",
         "Framework :: Robot Framework",

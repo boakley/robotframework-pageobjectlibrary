@@ -1,0 +1,20 @@
+# N.B. to push a new version to PyPi, update the version number
+# in PageObjectLibrary/version.py and then run 'python setup.py sdist upload'
+
+To build the distribution:
+
+$ python setup.py sdist
+
+To test:
+
+$ twine upload -u bryan_oakley --repository-url https://test.pypi.org/legacy/ dist/*
+
+verify by visiting https://test.pypi.org/project/robotframework-pageobjectlibrary
+
+Note: you can delete packages by clicking on the "manage" button on
+that page. 
+
+To push to pypi:
+
+$ twine upload dist/robotframework-pageobjectlibrary-<version>.tar.gz
+
