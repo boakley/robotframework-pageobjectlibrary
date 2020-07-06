@@ -94,7 +94,7 @@ class PageObjectLibraryKeywords(object):
 
         url = page_root if page_root is not None else page.selib.get_location()
         (scheme, netloc, path, parameters, query, fragment) = urlparse(url)
-        url = "%s://%s%s" % (scheme, netloc, page.PAGE_URL)
+        url = "%s://%s%s" % (scheme, netloc, page.get_page_url())
 
         with page._wait_for_page_refresh():
             page.selib.go_to(url)

@@ -3,13 +3,10 @@ from __future__ import absolute_import, unicode_literals
 from abc import ABCMeta
 from contextlib import contextmanager
 import warnings
-
 import robot.api
 from robot.libraries.BuiltIn import BuiltIn
-
 from selenium.webdriver.support.expected_conditions import staleness_of
 from selenium.webdriver.support.ui import WebDriverWait
-
 import six
 
 from .locatormap import LocatorMap
@@ -57,6 +54,9 @@ class PageObject(six.with_metaclass(ABCMeta, object)):
         self.logger = robot.api.logger
         self.locator = LocatorMap(getattr(self, "_locators", {}))
         self.builtin = BuiltIn()
+
+    def get_page_url(self):
+        return self.PAGE_URL
 
     # N.B. selib, browser use @property so that a
     # subclass can be instantiated outside of the context of a running
@@ -134,5 +134,6 @@ class PageObject(six.with_metaclass(ABCMeta, object)):
 
         self.logger.info("expected title: '%s'" % expected_title)
         self.logger.info("  actual title: '%s'" % actual_title)
-        raise Exception("expected title to be '%s' but it was '%s'" % (expected_title, actual_title))
+        raise Exception(
+            "expected title to be '%s' but it was '%s'" % (expected_title, actual_title))
         return False
