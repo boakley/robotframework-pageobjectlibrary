@@ -10,27 +10,27 @@ PageObject model.
 """
 
 from __future__ import print_function, absolute_import, unicode_literals
-import six
 
+import six
 import robot.api
 from robot.libraries.BuiltIn import BuiltIn
 
-
 from .pageobject import PageObject
+
 try:
     from urlparse import urlparse
 except ImportError:
     from urllib.parse import urlparse
 
-class PageObjectLibraryKeywords(object):
 
+class PageObjectLibraryKeywords(object):
     ROBOT_LIBRARY_SCOPE = "TEST SUITE"
 
     def __init__(self):
         self.builtin = BuiltIn()
         self.logger = robot.api.logger
 
-    def the_current_page_should_be(self, page_name):
+    def the_current_page_should_be(self, page_name, *args):
         """Fails if the name of the current page is not the given page name
 
         ``page_name`` is the name you would use to import the page.
@@ -43,8 +43,7 @@ class PageObjectLibraryKeywords(object):
         implementation can be overridden by each page object.
 
         """
-
-        page = self._get_page_object(page_name)
+        page = self._get_page_object(page_name, *args)
 
         # This causes robot to automatically resolve keyword
         # conflicts by looking in the current page first.
@@ -61,7 +60,7 @@ class PageObjectLibraryKeywords(object):
         # If we get here, we're not on the page we think we're on
         raise Exception("Expected page to be %s but it was not" % page_name)
 
-    def go_to_page(self, page_name, page_root=None):
+    def go_to_page(self, page_name, *args, page_root=None):
         """Go to the url for the given page object.
 
         Unless explicitly provided, the URL root will be based on the
@@ -90,7 +89,7 @@ class PageObjectLibraryKeywords(object):
 
         """
 
-        page = self._get_page_object(page_name)
+        page = self._get_page_object(page_name, *args)
 
         url = page_root if page_root is not None else page.selib.get_location()
         (scheme, netloc, path, parameters, query, fragment) = urlparse(url)
@@ -102,17 +101,18 @@ class PageObjectLibraryKeywords(object):
         # true/false, or should it throw an exception?
         self.the_current_page_should_be(page_name)
 
-    def _get_page_object(self, page_name):
+    def _get_page_object(self, page_name, *args):
         """Import the page object if necessary, then return the handle to the library
 
         Note: If the page object has already been imported, it won't be imported again.
         """
-
-        try:
+        if len(args) > 0:
+            self.builtin.import_library(page_name, *args)
             page = self.builtin.get_library_instance(page_name)
-
-        except RuntimeError:
-            self.builtin.import_library(page_name)
-            page = self.builtin.get_library_instance(page_name)
-
+        else:
+            try:
+                page = self.builtin.get_library_instance(page_name)
+            except RuntimeError:
+                self.builtin.import_library(page_name)
+                page = self.builtin.get_library_instance(page_name)
         return page
