@@ -54,7 +54,7 @@ class PageObjectLibrary(PageObjectLibraryKeywords):
     standard Selenium methods provided by the Selenium library. The
     following example shows how to find all link elements on a page:
 
-    | elements = self.browser,find_elements_by_tag_name("a")
+    | elements = self.browser.find_elements(By.TAG_NAME, "a")
 
     = Creating Page Object Classes =
 

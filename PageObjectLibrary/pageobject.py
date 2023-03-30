@@ -9,6 +9,7 @@ from robot.libraries.BuiltIn import BuiltIn
 
 from selenium.webdriver.support.expected_conditions import staleness_of
 from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.common.by import By
 
 import six
 
@@ -91,7 +92,7 @@ class PageObject(six.with_metaclass(ABCMeta, object)):
         2) the javascript document.readyState variable to be set
            to "complete"
         """
-        old_page = self.browser.find_element_by_tag_name('html')
+        old_page = self.browser.find_element(By.TAG_NAME, 'html')
         yield
         WebDriverWait(self.browser, timeout).until(
             staleness_of(old_page),
